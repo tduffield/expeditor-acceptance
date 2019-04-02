@@ -1,6 +1,9 @@
 # Stop script execution when a non-terminating error occurs
 $ErrorActionPreference = "Stop"
 
+Write-Output "FIPS $Env:OMNIBUS_FIPS_MODE"
+exit 0
+
 $channel = "$Env:CHANNEL"
 If ([string]::IsNullOrEmpty($channel)) { $channel = "unstable" }
 

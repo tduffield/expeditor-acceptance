@@ -1,0 +1,80 @@
+env:
+  BUILD_TIMESTAMP: 2019-04-02_11-22-33
+
+steps:
+  # - label: ":hammer_and_wrench: el-7-x86_64"
+  #   agents:
+  #     queue: omnibus-el-7-x86_64
+  #   plugins:
+  #     chef/omnibus#35b2e91:
+  #       build: harmony
+  #       omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+  #       adhoc: true
+
+  # - label: ":hammer_and_wrench: mac_os_x-10.12-x86_64"
+  #   agents:
+  #     queue: "anka-trial"
+  #   plugins:
+  #     - chef/omnibus#35b2e91:
+  #         build: harmony
+  #         omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+  #         adhoc: true
+  #     - chef/anka#v0.4.3:
+  #         vm-name: "macos-omnibus-10.12"
+  #         wait-network: true
+  #         debug: true
+
+  # - label: ":hammer_and_wrench: windows-2012r2-x86_64"
+  #   agents:
+  #     queue: dev-omnibus-windows-2012r2-x86_64
+  #   env:
+  #     OMNIBUS_FIPS_MODE: true
+  #   plugins:
+  #     chef/omnibus#35b2e91:
+  #       build: harmony
+  #       config: omnibus-harmony\omnibus.rb
+  #       install-dir: C:\harmony
+  #       omnibus-pipeline-definition-path: .expeditor/harmony-acceptance.omnibus.yml
+  #       adhoc: true
+
+  # - wait
+
+  # - label: Create Build Record
+  #   plugins:
+  #     chef/omnibus#35b2e91:
+  #       create-build-record: harmony
+
+  # - label: set metadata
+  #   command: buildkite-agent meta-data set "harmony_build_version" "3.7.11"
+
+  # - wait
+
+  # - label: ":mag: el-7-x86_64"
+  #   agents:
+  #     queue: omnibus-el-7-x86_64
+  #   plugins:
+  #     - chef/omnibus#35b2e91:
+  #         test: harmony
+  #         test-path: omnibus-test.sh
+
+  # - label: ":mag: mac_os_x-10.12-x86_64"
+  #   agents:
+  #     queue: "anka-trial"
+  #   plugins:
+  #     - chef/omnibus#35b2e91:
+  #         test: harmony
+  #         test-path: omnibus-test.sh
+  #     - chef/anka#v0.4.3:
+  #         vm-name: "macos-omnibus-10.12"
+  #         wait-network: true
+  #         debug: true
+
+  - label: ":mag: windows-2012r2-x86_64"
+    env:
+      OMNIBUS_FIPS_MODE: false
+    agents:
+      queue: dev-omnibus-windows-2012r2-x86_64
+    plugins:
+      - chef/omnibus#35b2e91:
+          test: harmony
+          test-path: omnibus-harmony/omnibus-test.ps1
