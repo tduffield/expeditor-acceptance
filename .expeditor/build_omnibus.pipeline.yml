@@ -1,0 +1,34 @@
+env:
+  BUILD_TIMESTAMP: 2019-04-03_11-22-33
+
+steps:
+  - label: ":hammer_and_wrench: windows-2012r2-x86_64"
+    agents:
+      queue: dev-omnibus-windows-2012r2-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        config: omnibus-harmony/omnibus.rb
+        install-dir: C:\harmony
+        omnibus-pipeline-definition-path: .expeditor/harmony-acceptance.omnibus.yml
+        adhoc: false
+
+  # - wait
+
+  # - label: Create Build Record
+  #   plugins:
+  #     chef/omnibus#master:
+  #       create-build-record: harmony
+
+  # - label: set metadata
+  #   command: buildkite-agent meta-data set "harmony_build_version" "3.7.11"
+
+  # - wait
+
+  # - label: ":mag: windows-2012r2-x86_64"
+  #   agents:
+  #     queue: omnibus-windows-2012r2-x86_64
+  #   plugins:
+  #     - chef/omnibus#master:
+  #         test: harmony
+  #         test-path: omnibus-test.ps1
